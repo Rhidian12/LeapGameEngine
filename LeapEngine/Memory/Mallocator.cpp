@@ -13,7 +13,34 @@ namespace leap
 	Mallocator::Mallocator()
 		: m_pBlocks{}
 		, m_pCurrentEnd{}
+		, m_NrOfBlocks{}
 	{}
+
+	Mallocator& Mallocator::GetInstance()
+	{
+		if (!m_pInstance)
+		{
+			m_pInstance = static_cast<Mallocator*>(malloc(sizeof(Mallocator)));
+			new (m_pInstance) Mallocator{};
+		}
+
+		return *m_pInstance;
+
+		//static Mallocator instance{};
+		//return instance;
+	}
+
+	void Mallocator::Cleanup()
+	{
+		if (!m_pInstance)
+		{
+			return;
+		}
+
+		m_pInstance->~Mallocator();
+
+		SAFE_DELETE(m_pInstance);
+	}
 
 	Mallocator::~Mallocator()
 	{
@@ -54,7 +81,7 @@ namespace leap
 	{
 		// check if this piece of memory is part of our memory
 		// we do this by taking the memory address and going BACK to the tag to check if it's 0xBEEF
-		Block* const pBlock{ reinterpret_cast<Block*>(reinterpret_cast<uint64_t>(pMemory) - sizeof(Block::size) - sizeof(Block::tag)) };
+		Block* const pBlock{ reinterpret_cast<Block*>(reinterpret_cast<uint64_t>(pMemory) - sizeof(Block)) };
 		const uint16_t tag{ pBlock->tag };
 
 		if (tag != MEMORY_TAG)
@@ -108,6 +135,9 @@ namespace leap
 			SAFE_DELETE(pStart->pBlock);
 			SAFE_DELETE(pStart);
 
+			m_pBlocks = nullptr;
+			m_pCurrentEnd = nullptr;
+
 			--m_NrOfBlocks;
 
 			return;
@@ -121,7 +151,8 @@ namespace leap
 				pNewEnd = pNewEnd->pNext;
 			}
 
-			m_pCurrentEnd = pEnd;
+			m_pCurrentEnd = pNewEnd;
+			m_pCurrentEnd->pNext = nullptr;
 
 			SAFE_DELETE(pEnd->pBlock);
 			SAFE_DELETE(pEnd);

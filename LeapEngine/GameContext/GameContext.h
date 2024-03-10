@@ -1,7 +1,8 @@
 #pragma once
-#include "Singleton.h"
+
 #include <memory>
 #include <vector>
+
 #include "Logger/ILogger.h"
 
 class GLFWwindow;
@@ -12,7 +13,7 @@ namespace leap
 	class Timer;
 	class Window;
 
-	class GameContext final : public Singleton<GameContext>
+	class GameContext final
 	{
 	public:
 		virtual ~GameContext();
@@ -29,7 +30,6 @@ namespace leap
 		template <class T>
 		T* GetLogger() const;
 	private:
-		friend Singleton;
 		friend LeapEngine;
 		GameContext();
 

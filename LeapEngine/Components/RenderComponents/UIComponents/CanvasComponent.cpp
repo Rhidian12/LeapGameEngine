@@ -1,6 +1,7 @@
 #include "CanvasComponent.h"
 
 #include "../../../GameContext/GameContext.h"
+#include "../LeapEngine/Leap.h"
 #include "../../../GameContext/Window.h"
 
 #include "../../Transform/Transform.h"
@@ -8,23 +9,23 @@
 void leap::CanvasComponent::SetReferenceResolution(const glm::ivec2& resolution)
 {
 	m_ReferenceResolution = resolution;
-	UpdateResolution(GameContext::GetInstance().GetWindow()->GetWindowSize());
+	UpdateResolution(LeapEngine::GetGameContext().GetWindow()->GetWindowSize());
 }
 
 void leap::CanvasComponent::SetMatchMode(MatchMode matchMode)
 {
 	m_MatchMode = matchMode;
-	UpdateResolution(GameContext::GetInstance().GetWindow()->GetWindowSize());
+	UpdateResolution(LeapEngine::GetGameContext().GetWindow()->GetWindowSize());
 }
 
 void leap::CanvasComponent::Awake()
 {
-	GameContext::GetInstance().GetWindow()->AddListener(this);
+	LeapEngine::GetGameContext().GetWindow()->AddListener(this);
 }
 
 void leap::CanvasComponent::OnDestroy()
 {
-	GameContext::GetInstance().GetWindow()->RemoveListener(this);
+	LeapEngine::GetGameContext().GetWindow()->RemoveListener(this);
 }
 
 void leap::CanvasComponent::Notify(const glm::ivec2& size)

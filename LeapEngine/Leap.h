@@ -1,10 +1,13 @@
 #pragma once
+
 #include <functional>
 
 class GLFWwindow;
 
 namespace leap
 {
+	class GameContext;
+
 	namespace graphics
 	{
 		class IRenderer;
@@ -21,6 +24,9 @@ namespace leap
 		LeapEngine& operator=(LeapEngine&& other) = delete;
 
 		void Run(const std::function<void()>& afterInitialize, int desiredFPS);
+
+		// [TBD]: Should this be a free function?
+		static GameContext& GetGameContext();
 
 	private:
 		GLFWwindow* m_pWindow{};

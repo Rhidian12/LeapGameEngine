@@ -8,6 +8,7 @@
 #include <LambdaCommand.h>
 
 #include "../../../GameContext/GameContext.h"
+#include "../LeapEngine/Leap.h"
 #include "../../../GameContext/Window.h"
 
 #include <algorithm>
@@ -154,7 +155,7 @@ bool leap::CanvasActions::IsPosInElement(const glm::vec2& position, ICanvasEleme
 glm::ivec2 leap::CanvasActions::GetMousePosition() const
 {
 	// Get the mouse position relative to the UI system (0,0 is middle of the screen for UI while 0,0 is top left corner for the mouse)
-	glm::vec2 mousePos{ input::InputManager::GetInstance().GetMouse()->GetPos() - GameContext::GetInstance().GetWindow()->GetWindowSize() / 2 };
+	glm::vec2 mousePos{ input::InputManager::GetInstance().GetMouse()->GetPos() - LeapEngine::GetGameContext().GetWindow()->GetWindowSize() / 2 };
 	// Invert the mouse since the UI system works with a Y-up system instead of the Y-down system from the mouse
 	mousePos.y = -mousePos.y;
 

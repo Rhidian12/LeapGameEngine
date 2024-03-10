@@ -8,6 +8,7 @@
 #include "GameContext/Window.h"
 #include "Interfaces/IRenderer.h"
 #include "ServiceLocator/ServiceLocator.h"
+#include <Leap.h>
 
 void unag::WindowManager::Start()
 {
@@ -17,7 +18,7 @@ void unag::WindowManager::Start()
 	// Link keyboard input
 	auto command = std::make_unique<leap::LambdaCommand>([=]()
 		{
-			leap::GameContext::GetInstance().GetWindow()->SetFullScreen(!leap::GameContext::GetInstance().GetWindow()->IsFullScreen());
+			leap::LeapEngine::GetGameContext().GetWindow()->SetFullScreen(!leap::LeapEngine::GetGameContext().GetWindow()->IsFullScreen());
 		});
 	keyboard->AddCommand(command.get(), leap::input::InputManager::InputType::EventPress, leap::input::Keyboard::Key::KeyF11);
 	m_Commands.push_back(std::move(command));

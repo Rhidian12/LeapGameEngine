@@ -8,6 +8,7 @@
 #include "../Transform/Transform.h"
 #include "../../GameContext/GameContext.h"
 #include "../../GameContext/Window.h"
+#include "../LeapEngine/Leap.h"
 
 #include <functional>
 
@@ -15,7 +16,7 @@
 
 leap::CameraComponent::CameraComponent()
 {
-	const auto window = GameContext::GetInstance().GetWindow();
+	const auto window = LeapEngine::GetGameContext().GetWindow();
 	window->AddListener(this);
 	const auto& size = window->GetWindowSize();
 	constexpr float fov = 90.f;
@@ -41,7 +42,7 @@ void leap::CameraComponent::Awake()
 
 void leap::CameraComponent::OnDestroy()
 {
-	GameContext::GetInstance().GetWindow()->RemoveListener(this);
+	LeapEngine::GetGameContext().GetWindow()->RemoveListener(this);
 
 	GetTransform()->OnPositionChanged.RemoveListener(this);
 	GetTransform()->OnRotationChanged.RemoveListener(this);

@@ -1,6 +1,7 @@
 #include "RectTransform.h"
 
 #include "../../../GameContext/GameContext.h"
+#include "../LeapEngine/Leap.h"
 #include "../../../GameContext/Window.h"
 
 #include "../../../SceneGraph/GameObject.h"
@@ -95,7 +96,7 @@ void leap::RectTransform::UpdateSize()
 {
 	m_IsSizeDirty = false;
 
-	const glm::vec2& screenSize{ GameContext::GetInstance().GetWindow()->GetWindowSize() };
+	const glm::vec2& screenSize{ LeapEngine::GetGameContext().GetWindow()->GetWindowSize() };
 	const glm::vec2& reference{ m_pCanvas->GetReference() };
 	const glm::vec2& canvasScale{ m_pCanvas->GetScale() };
 
@@ -107,7 +108,7 @@ void leap::RectTransform::UpdatePosition()
 {
 	m_IsPositionDirty = false;
 
-	const glm::vec2& screenSize{ GameContext::GetInstance().GetWindow()->GetWindowSize() };
+	const glm::vec2& screenSize{ LeapEngine::GetGameContext().GetWindow()->GetWindowSize() };
 	const glm::vec2& reference{ m_pCanvas->GetReference() };
 	const glm::vec2& canvasScale{ m_pCanvas->GetScale() };
 

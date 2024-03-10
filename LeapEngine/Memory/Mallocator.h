@@ -25,13 +25,17 @@ namespace leap
 		};
 
 	public:
-		Mallocator();
+		static Mallocator& GetInstance();
+		static void Cleanup();
+
 		~Mallocator();
 
 		void* Allocate(const int32_t nrOfBytes);
 		void Deallocate(void* pMemory);
 
 	private:
+		Mallocator();
+
 		void AddNewBlock(Block* const pBlock);
 		void RemoveExistingBlock(Block* const pBlock);
 
@@ -39,5 +43,7 @@ namespace leap
 		Node* m_pCurrentEnd;
 
 		int32_t m_NrOfBlocks;
+
+		inline static Mallocator* m_pInstance;
 	};
 }

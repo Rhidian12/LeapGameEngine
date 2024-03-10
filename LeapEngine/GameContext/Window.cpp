@@ -2,6 +2,7 @@
 #include "GameContext.h"
 #include "glfw3.h"
 #include "../ServiceLocator/ServiceLocator.h"
+#include "../Leap.h"
 #include "Interfaces/IRenderer.h"
 #include "Interfaces/ITexture.h"
 #include <fstream>
@@ -189,7 +190,7 @@ void leap::Window::window_size_callback(GLFWwindow*, int width, int height)
 {
 	if (width < 1 || height < 1) return;
 
-	const auto self = GameContext::GetInstance().GetWindow();
+	const auto self = LeapEngine::GetGameContext().GetWindow();
 
 	if (self->m_WindowSize.x == width && self->m_WindowSize.y == height) return;
 

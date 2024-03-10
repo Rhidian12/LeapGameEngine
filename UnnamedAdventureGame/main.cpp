@@ -15,12 +15,12 @@ int main()
 {
 	leap::LeapEngine engine{ 1280, 720, "Leap game engine" };
 
-	auto afterInitializing = []()
+	auto afterInitializing = [&engine]()
 		{
-			leap::GameContext::GetInstance().AddLogger<leap::ImGuiLogger>();
+			engine.GetGameContext().AddLogger<leap::ImGuiLogger>();
 			leap::ServiceLocator::GetPhysics().SetEnabledDebugDrawing(true);
 			leap::SceneManager::GetInstance().AddScene("Test scene", unag::MainMenuScene::Load);
-			//leap::GameContext::GetInstance().GetWindow()->SetIcon("Data/Example.png");
+			//engine.GetGameContext().GetWindow()->SetIcon("Data/Example.png");
 		};
 
 	engine.Run(afterInitializing, 60);
