@@ -8,10 +8,12 @@
 #include <SceneGraph/GameObject.h>
 #include <Components/Audio/AudioSource.h>
 
+#include <Leap.h>
+
 void unag::AudioTester::Awake()
 {
 	auto pCommand{ std::make_unique<leap::LambdaCommand>([this]() { GetGameObject()->GetComponent<leap::AudioSource>()->Mute(); }) };
-	leap::input::InputManager::GetInstance().GetKeyboard()->AddCommand(
+	leap::LeapEngine::GetInputManager().GetKeyboard()->AddCommand(
 		pCommand.get(), 
 		leap::input::InputManager::InputType::EventPress, 
 		leap::input::Keyboard::Key::KeyM
@@ -19,7 +21,7 @@ void unag::AudioTester::Awake()
 	m_pCommands.emplace_back(std::move(pCommand));
 
 	pCommand = std::make_unique<leap::LambdaCommand>([this]() { GetGameObject()->GetComponent<leap::AudioSource>()->Unmute(); });
-	leap::input::InputManager::GetInstance().GetKeyboard()->AddCommand(
+	leap::LeapEngine::GetInputManager().GetKeyboard()->AddCommand(
 		pCommand.get(),
 		leap::input::InputManager::InputType::EventPress,
 		leap::input::Keyboard::Key::KeyU
@@ -27,7 +29,7 @@ void unag::AudioTester::Awake()
 	m_pCommands.emplace_back(std::move(pCommand));
 
 	pCommand = std::make_unique<leap::LambdaCommand>([this]() { GetGameObject()->GetComponent<leap::AudioSource>()->Pause(); });
-	leap::input::InputManager::GetInstance().GetKeyboard()->AddCommand(
+	leap::LeapEngine::GetInputManager().GetKeyboard()->AddCommand(
 		pCommand.get(),
 		leap::input::InputManager::InputType::EventPress,
 		leap::input::Keyboard::Key::KeyP
@@ -35,7 +37,7 @@ void unag::AudioTester::Awake()
 	m_pCommands.emplace_back(std::move(pCommand));
 
 	pCommand = std::make_unique<leap::LambdaCommand>([this]() { GetGameObject()->GetComponent<leap::AudioSource>()->Resume(); });
-	leap::input::InputManager::GetInstance().GetKeyboard()->AddCommand(
+	leap::LeapEngine::GetInputManager().GetKeyboard()->AddCommand(
 		pCommand.get(),
 		leap::input::InputManager::InputType::EventPress,
 		leap::input::Keyboard::Key::KeyR
@@ -43,7 +45,7 @@ void unag::AudioTester::Awake()
 	m_pCommands.emplace_back(std::move(pCommand));
 
 	pCommand = std::make_unique<leap::LambdaCommand>([this]() { GetGameObject()->GetComponent<leap::AudioSource>()->Play(); });
-	leap::input::InputManager::GetInstance().GetKeyboard()->AddCommand(
+	leap::LeapEngine::GetInputManager().GetKeyboard()->AddCommand(
 		pCommand.get(),
 		leap::input::InputManager::InputType::EventPress,
 		leap::input::Keyboard::Key::KeyN
@@ -55,6 +57,6 @@ void unag::AudioTester::OnDestroy()
 {
 	for (const auto& pCommand : m_pCommands)
 	{
-		leap::input::InputManager::GetInstance().GetKeyboard()->RemoveCommand(pCommand.get());
+		leap::LeapEngine::GetInputManager().GetKeyboard()->RemoveCommand(pCommand.get());
 	}
 }

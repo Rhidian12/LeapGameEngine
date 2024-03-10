@@ -8,6 +8,11 @@ namespace leap
 {
 	class GameContext;
 
+	namespace input
+	{
+		class InputManager;
+	}
+
 	namespace graphics
 	{
 		class IRenderer;
@@ -25,8 +30,9 @@ namespace leap
 
 		void Run(const std::function<void()>& afterInitialize, int desiredFPS);
 
-		// [TBD]: Should this be a free function?
+		// [TBD]: Should these be free functions?
 		static GameContext& GetGameContext();
+		static input::InputManager& GetInputManager();
 
 	private:
 		GLFWwindow* m_pWindow{};

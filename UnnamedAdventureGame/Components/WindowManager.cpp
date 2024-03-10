@@ -12,7 +12,7 @@
 
 void unag::WindowManager::Start()
 {
-	const auto& input = leap::input::InputManager::GetInstance();
+	const auto& input = leap::LeapEngine::GetInputManager();
 	const auto keyboard = input.GetKeyboard();
 
 	// Link keyboard input
@@ -50,7 +50,7 @@ void unag::WindowManager::Start()
 
 void unag::WindowManager::OnDestroy()
 {
-	const auto& input = leap::input::InputManager::GetInstance();
+	const auto& input = leap::LeapEngine::GetInputManager();
 	for (auto& command : m_Commands)
 	{
 		input.GetKeyboard()->RemoveCommand(command.get());

@@ -18,7 +18,7 @@ void unag::FreeCamMovement::Awake()
 
 void unag::FreeCamMovement::Start()
 {
-	const auto& input = leap::input::InputManager::GetInstance();
+	const auto& input = leap::LeapEngine::GetInputManager();
 	const auto keyboard = input.GetKeyboard();
 	const auto mouse = input.GetMouse();
 
@@ -54,7 +54,7 @@ void unag::FreeCamMovement::Start()
 	// Link mouse input
 	command = std::make_unique<leap::LambdaCommand>([=]()
 		{
-			const auto mouseDelta = static_cast<glm::vec2>(leap::input::InputManager::GetInstance().GetMouse()->GetDelta());
+			const auto mouseDelta = static_cast<glm::vec2>(leap::LeapEngine::GetInputManager().GetMouse()->GetDelta());
 			const auto deltaTime = leap::LeapEngine::GetGameContext().GetTimer()->GetDeltaTime();
 			constexpr float mouseSpeed = 15.f;
 
@@ -67,7 +67,7 @@ void unag::FreeCamMovement::Start()
 
 void unag::FreeCamMovement::OnDestroy()
 {
-	const auto& input = leap::input::InputManager::GetInstance();
+	const auto& input = leap::LeapEngine::GetInputManager();
 	for (auto& command : m_Commands)
 	{
 		input.GetKeyboard()->RemoveCommand(command.get());

@@ -26,6 +26,7 @@ namespace leap
 	struct EngineContext final
 	{
 		GameContext gameContext;
+		input::InputManager inputManager;
 	};
 
 	static EngineContext* pEngineContext{};
@@ -57,7 +58,7 @@ leap::LeapEngine::LeapEngine(int width, int height, const char* title)
 	Debug::Log("LeapEngine Log: Window created successfully");
 
 	Debug::Log("LeapEngine Log: Linking window to the Input library");
-	input::InputManager::GetInstance().SetWindow(m_pWindow);
+	pEngineContext->inputManager.SetWindow(m_pWindow);
 
 	Debug::Log("LeapEngine Log: Linking window to the game context");
 	pEngineContext->gameContext.CreateWindowWrapper(m_pWindow);
@@ -95,7 +96,7 @@ void leap::LeapEngine::Run(const std::function<void()>& afterInitialize, int des
 
 	afterInitialize();
 
-	auto& input{ input::InputManager::GetInstance() };
+	auto& input{ pEngineContext->inputManager };
 	auto& gameContext{ pEngineContext->gameContext };
 
 	Debug::Log("LeapEngine Log: Loading default scene");
@@ -171,4 +172,9 @@ void leap::LeapEngine::Run(const std::function<void()>& afterInitialize, int des
 leap::GameContext& leap::LeapEngine::GetGameContext()
 {
 	return pEngineContext->gameContext;
+}
+
+leap::input::InputManager& leap::LeapEngine::GetInputManager()
+{
+	return pEngineContext->inputManager;
 }

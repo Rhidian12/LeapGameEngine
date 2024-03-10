@@ -1,6 +1,7 @@
 #include "Keyboard.h"
 #include "glfw3.h"
 #include "Command.h"
+#include "../LeapEngine/Leap.h"
 #include <ranges>
 
 leap::input::Keyboard::Keyboard(GLFWwindow* pWindow, int keyBuffer) : m_pWindow(pWindow)
@@ -60,7 +61,7 @@ void leap::input::Keyboard::ProcessKey(GLFWwindow*, int key, int, int action, in
 {
 	if (static_cast<InputManager::InputType>(action) == InputManager::InputType::EventRepeat) return;
 
-	const auto keyboard = InputManager::GetInstance().GetKeyboard();
+	const auto keyboard = leap::LeapEngine::GetInputManager().GetKeyboard();
 	for (const auto& actionCommands = keyboard->m_keyboardCommands[static_cast<InputManager::InputType>(action)][static_cast<Key>(key)]; const auto & command : actionCommands)
 	{
 		command->Execute();

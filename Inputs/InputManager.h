@@ -1,5 +1,4 @@
 #pragma once
-#include "Singleton.h"
 
 #include <vec2.hpp>
 #include <vector>
@@ -17,7 +16,7 @@ namespace leap::input
 {
     class Mouse;
     class Keyboard;
-	class InputManager final : public Singleton<InputManager>
+	class InputManager final
 	{
 	public:
 #pragma region InputEnums
@@ -39,9 +38,10 @@ namespace leap::input
         InputManager& operator=(const InputManager& other) = delete;
         InputManager& operator=(InputManager&& other) = delete;
         virtual ~InputManager();
+
 	private:
+        friend class LeapEngine;
         InputManager();
-        friend Singleton;
 
         GLFWwindow* m_pWindow {nullptr};
         std::unique_ptr<Mouse> m_pMouse;

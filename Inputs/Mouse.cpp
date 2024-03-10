@@ -1,5 +1,6 @@
 #include "Mouse.h"
 #include "glfw3.h"
+#include "../LeapEngine/Leap.h"
 #include <ranges>
 #include <Command.h>
 
@@ -91,7 +92,7 @@ void leap::input::Mouse::ProcessMouse(GLFWwindow*, int button, int action, int)
 {
 	if (static_cast<InputManager::InputType>(action) == InputManager::InputType::EventRepeat) return;
 
-	const auto mouse = InputManager::GetInstance().GetMouse();
+	const auto mouse = leap::LeapEngine::GetInputManager().GetMouse();
 	for (const auto& commands = mouse->m_mouseCommands[static_cast<InputManager::InputType>(action)][static_cast<Button>(button)]; const auto & command : commands)
 	{
 		command->Execute();
@@ -123,7 +124,7 @@ void leap::input::Mouse::ProcessMouse(GLFWwindow*, int button, int action, int)
 
 void leap::input::Mouse::ProcessWheel(GLFWwindow*, double xoffset, double yoffset)
 {
-	const auto mouse = InputManager::GetInstance().GetMouse();
+	const auto mouse = leap::LeapEngine::GetInputManager().GetMouse();
 	glm::ivec2 value{ xoffset, yoffset };
 	std::vector<Command*>* commands;
 

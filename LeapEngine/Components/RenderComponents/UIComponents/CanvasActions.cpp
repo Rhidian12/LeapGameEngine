@@ -26,13 +26,13 @@ void leap::CanvasActions::Remove(ICanvasElement* pElement)
 void leap::CanvasActions::Awake()
 {
 	m_pCommands.emplace_back(std::make_unique<LambdaCommand>([this]() { OnClickStart(); }));
-	input::InputManager::GetInstance().GetMouse()->AddCommand(m_pCommands[m_pCommands.size() - 1].get(), input::InputManager::InputType::EventPress, input::Mouse::Button::LeftButton);
+	LeapEngine::GetInputManager().GetMouse()->AddCommand(m_pCommands[m_pCommands.size() - 1].get(), input::InputManager::InputType::EventPress, input::Mouse::Button::LeftButton);
 
 	m_pCommands.emplace_back(std::make_unique<LambdaCommand>([this]() { OnClick(); }));
-	input::InputManager::GetInstance().GetMouse()->AddCommand(m_pCommands[m_pCommands.size() - 1].get(), input::InputManager::InputType::EventRepeat, input::Mouse::Button::LeftButton);
+	LeapEngine::GetInputManager().GetMouse()->AddCommand(m_pCommands[m_pCommands.size() - 1].get(), input::InputManager::InputType::EventRepeat, input::Mouse::Button::LeftButton);
 
 	m_pCommands.emplace_back(std::make_unique<LambdaCommand>([this]() { OnClickEnd(); }));
-	input::InputManager::GetInstance().GetMouse()->AddCommand(m_pCommands[m_pCommands.size() - 1].get(), input::InputManager::InputType::EventRelease, input::Mouse::Button::LeftButton);
+	LeapEngine::GetInputManager().GetMouse()->AddCommand(m_pCommands[m_pCommands.size() - 1].get(), input::InputManager::InputType::EventRelease, input::Mouse::Button::LeftButton);
 }
 
 void leap::CanvasActions::Update()
@@ -42,7 +42,7 @@ void leap::CanvasActions::Update()
 
 void leap::CanvasActions::LateUpdate()
 {
-	const glm::ivec2& mouseDelta{ input::InputManager::GetInstance().GetMouse()->GetDelta() };
+	const glm::ivec2& mouseDelta{ LeapEngine::GetInputManager().GetMouse()->GetDelta() };
 	if (abs(mouseDelta.x) > 0 || abs(mouseDelta.y) > 0)
 	{
 		OnMove();
@@ -53,7 +53,7 @@ void leap::CanvasActions::OnDestroy()
 {
 	for (const auto& pCommand : m_pCommands)
 	{
-		input::InputManager::GetInstance().GetMouse()->RemoveCommand(pCommand.get());
+		LeapEngine::GetInputManager().GetMouse()->RemoveCommand(pCommand.get());
 	}
 }
 
@@ -155,7 +155,7 @@ bool leap::CanvasActions::IsPosInElement(const glm::vec2& position, ICanvasEleme
 glm::ivec2 leap::CanvasActions::GetMousePosition() const
 {
 	// Get the mouse position relative to the UI system (0,0 is middle of the screen for UI while 0,0 is top left corner for the mouse)
-	glm::vec2 mousePos{ input::InputManager::GetInstance().GetMouse()->GetPos() - LeapEngine::GetGameContext().GetWindow()->GetWindowSize() / 2 };
+	glm::vec2 mousePos{ LeapEngine::GetInputManager().GetMouse()->GetPos() - LeapEngine::GetGameContext().GetWindow()->GetWindowSize() / 2 };
 	// Invert the mouse since the UI system works with a Y-up system instead of the Y-down system from the mouse
 	mousePos.y = -mousePos.y;
 
@@ -164,7 +164,7 @@ glm::ivec2 leap::CanvasActions::GetMousePosition() const
 
 glm::ivec2 leap::CanvasActions::GetMouseDelta() const
 {
-	glm::ivec2 mouseDelta{ input::InputManager::GetInstance().GetMouse()->GetDelta() };
+	glm::ivec2 mouseDelta{ LeapEngine::GetInputManager().GetMouse()->GetDelta() };
 	// Invert the mouse since the UI system works with a Y-up system instead of the Y-down system from the mouse
 	mouseDelta.y = -mouseDelta.y;
 
