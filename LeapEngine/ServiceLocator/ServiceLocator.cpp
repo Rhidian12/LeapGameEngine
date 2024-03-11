@@ -25,3 +25,16 @@ leap::physics::IPhysics& leap::ServiceLocator::GetPhysics()
 {
 	return m_pPhysics.get() == nullptr ? *m_pDefaultPhysics : *m_pPhysics;
 }
+
+void leap::ServiceLocator::Cleanup()
+{
+	// [TODO]: It kind of beats having the point of smart pointers if we manually release them anyway...
+	m_pDefaultAudioSystem.reset(nullptr);
+	m_pAudioSystem.reset(nullptr);
+
+	m_pDefaultRenderer.reset(nullptr);
+	m_pRenderer.reset(nullptr);
+
+	m_pDefaultPhysics.reset(nullptr);
+	m_pPhysics.reset(nullptr);
+}

@@ -33,6 +33,9 @@ namespace leap
 		static void RegisterRenderer(GLFWwindow* pWindow);
 		template <typename T>
 		static void RegisterPhysics();
+
+		static void Cleanup();
+
 	private:
 		static std::unique_ptr<audio::IAudioSystem> m_pAudioSystem;
 		static std::unique_ptr<audio::DefaultAudioSystem> m_pDefaultAudioSystem;
