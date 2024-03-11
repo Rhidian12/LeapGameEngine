@@ -18,6 +18,7 @@ namespace leap
 	{
 		class IRenderer;
 		class DirectXMeshLoader;
+		class DirectXDefaults;
 	}
 
 	class LeapEngine final
@@ -36,7 +37,8 @@ namespace leap
 		static GameContext& GetGameContext();
 		static input::InputManager& GetInputManager();
 		static SceneManager& GetSceneManager();
-		static graphics::DirectXMeshLoader& GetDirectXMeshLoader(); // Why is this even a singleton to begin witH?
+		static graphics::DirectXMeshLoader& GetDirectXMeshLoader(); // Why is this even a singleton to begin with?
+		static graphics::DirectXDefaults& GetDirectXDefaults();
 
 	private:
 		GLFWwindow* m_pWindow{};

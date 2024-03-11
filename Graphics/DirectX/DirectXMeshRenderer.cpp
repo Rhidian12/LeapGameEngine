@@ -33,12 +33,12 @@ void leap::graphics::DirectXMeshRenderer::Draw(IMaterial* pMaterial)
 	ID3D11Buffer* pIndexBuffer{ m_pIndexBuffer };
 	unsigned int nrIndices{ m_NrIndices };
 
-	if (!pMaterial) pMaterial = DirectXDefaults::GetInstance().GetMaterialNotFound(m_pDevice);
+	if (!pMaterial) pMaterial = leap::LeapEngine::GetDirectXDefaults().GetMaterialNotFound(m_pDevice);
 	if (!m_pVertexBuffer || !m_pIndexBuffer)
 	{
 		if (m_IsLineRenderer) return;
 
-		DirectXDefaults& defaults{ DirectXDefaults::GetInstance() };
+		DirectXDefaults& defaults{ leap::LeapEngine::GetDirectXDefaults() };
 		pMaterial = defaults.GetMaterialError(m_pDevice);
 		defaults.GetMeshError(m_pDevice, vertexSize, pVertexBuffer, pIndexBuffer, nrIndices);
 	}

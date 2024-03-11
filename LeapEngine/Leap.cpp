@@ -19,6 +19,7 @@
 #include "Physics/PhysicsSync.h"
 
 #include "../Graphics/DirectX/DirectXMeshLoader.h"
+#include "../Graphics/DirectX/DirectXDefaults.h"
 
 #include "Memory/Mallocator.h"
 
@@ -31,6 +32,7 @@ namespace leap
 		input::InputManager inputManager;
 		SceneManager sceneManager;
 		graphics::DirectXMeshLoader meshLoader;
+		graphics::DirectXDefaults directXDefaults;
 	};
 
 	static EngineContext* pEngineContext{};
@@ -84,6 +86,8 @@ leap::LeapEngine::LeapEngine(int width, int height, const char* title)
 
 leap::LeapEngine::~LeapEngine()
 {
+	ServiceLocator::Cleanup();
+
 	if (pEngineContext)
 	{
 		delete pEngineContext;
@@ -191,4 +195,9 @@ leap::SceneManager& leap::LeapEngine::GetSceneManager()
 leap::graphics::DirectXMeshLoader& leap::LeapEngine::GetDirectXMeshLoader()
 {
 	return pEngineContext->meshLoader;
+}
+
+leap::graphics::DirectXDefaults& leap::LeapEngine::GetDirectXDefaults()
+{
+	return pEngineContext->directXDefaults;
 }

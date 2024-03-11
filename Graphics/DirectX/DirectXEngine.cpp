@@ -356,7 +356,7 @@ void leap::graphics::DirectXEngine::ReloadDirectXEngine()
 	m_SpriteRenderer.Create(m_pDevice, m_pDeviceContext, glm::vec2{ width, height });
 
 	Debug::Log("DirectXRenderer Log: Successfully reloaded DirectX engine");
-	DirectXDefaults::GetInstance().Reload(m_pDevice);
+	leap::LeapEngine::GetDirectXDefaults().Reload(m_pDevice);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();

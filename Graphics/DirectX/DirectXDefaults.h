@@ -11,7 +11,7 @@ namespace leap::graphics
 {
 	class DirectXMaterial;
 
-	class DirectXDefaults final : public Singleton<DirectXDefaults>
+	class DirectXDefaults final
 	{
 	public:
 		virtual ~DirectXDefaults();
@@ -22,7 +22,7 @@ namespace leap::graphics
 
 		void Reload(ID3D11Device* pDevice) const;
 	private:
-		friend Singleton;
+		friend class LeapEngine;
 
 		DirectXDefaults() = default;
 
