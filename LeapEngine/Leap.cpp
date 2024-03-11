@@ -27,6 +27,7 @@ namespace leap
 	{
 		GameContext gameContext;
 		input::InputManager inputManager;
+		SceneManager sceneManager;
 	};
 
 	static EngineContext* pEngineContext{};
@@ -100,7 +101,7 @@ void leap::LeapEngine::Run(const std::function<void()>& afterInitialize, int des
 	auto& gameContext{ pEngineContext->gameContext };
 
 	Debug::Log("LeapEngine Log: Loading default scene");
-	auto& sceneManager = SceneManager::GetInstance();
+	auto& sceneManager = pEngineContext->sceneManager;
 	const auto timer = gameContext.GetTimer();
 	sceneManager.LoadScene(0);
 
@@ -177,4 +178,9 @@ leap::GameContext& leap::LeapEngine::GetGameContext()
 leap::input::InputManager& leap::LeapEngine::GetInputManager()
 {
 	return pEngineContext->inputManager;
+}
+
+leap::SceneManager& leap::LeapEngine::GetSceneManager()
+{
+	return pEngineContext->sceneManager;
 }

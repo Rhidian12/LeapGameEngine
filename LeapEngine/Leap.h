@@ -7,6 +7,7 @@ class GLFWwindow;
 namespace leap
 {
 	class GameContext;
+	class SceneManager;
 
 	namespace input
 	{
@@ -33,6 +34,7 @@ namespace leap
 		// [TBD]: Should these be free functions?
 		static GameContext& GetGameContext();
 		static input::InputManager& GetInputManager();
+		static SceneManager& GetSceneManager();
 
 	private:
 		GLFWwindow* m_pWindow{};

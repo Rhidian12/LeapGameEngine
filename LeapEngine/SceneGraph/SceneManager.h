@@ -9,11 +9,10 @@
 namespace leap
 {
 	class LeapEngine;
-	class SceneManager final : public Singleton<SceneManager>
+	class SceneManager final
 	{
 	public:
 		SceneManager() = default;
-		~SceneManager() override = default;
 		SceneManager(const SceneManager& other) = delete;
 		SceneManager(SceneManager&& other) = delete;
 		SceneManager& operator=(const SceneManager& other) = delete;

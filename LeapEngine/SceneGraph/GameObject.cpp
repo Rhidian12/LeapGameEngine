@@ -2,6 +2,7 @@
 
 #include "../Components/Transform/Transform.h"
 
+#include "../Leap.h"
 #include "SceneManager.h"
 
 unsigned int leap::GameObject::m_TransformComponentID = leap::ReflectionUtils::GenerateTypenameHash<Transform>();
@@ -16,7 +17,7 @@ void leap::GameObject::SetParent(GameObject* pParent)
 {
 	if (pParent == nullptr)
 	{
-		pParent = SceneManager::GetInstance().GetActiveScene()->GetRootObject();
+		pParent = LeapEngine::GetSceneManager().GetActiveScene()->GetRootObject();
 	}
 
 	GameObject* pPrevParent{ m_pParent };

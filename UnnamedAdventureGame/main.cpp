@@ -19,7 +19,7 @@ int main()
 		{
 			engine.GetGameContext().AddLogger<leap::ImGuiLogger>();
 			leap::ServiceLocator::GetPhysics().SetEnabledDebugDrawing(true);
-			leap::SceneManager::GetInstance().AddScene("Test scene", unag::MainMenuScene::Load);
+			engine.GetSceneManager().AddScene("Test scene", unag::MainMenuScene::Load);
 			//engine.GetGameContext().GetWindow()->SetIcon("Data/Example.png");
 		};
 
