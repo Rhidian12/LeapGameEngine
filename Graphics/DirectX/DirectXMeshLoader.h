@@ -15,9 +15,11 @@ namespace leap::graphics
 {
 	class CustomMesh;
 
-	class DirectXMeshLoader final : public Singleton<DirectXMeshLoader>
+	class DirectXMeshLoader final
 	{
 	public:
+		~DirectXMeshLoader();
+
 		struct DirectXMeshDefinition
 		{
 			ID3D11Buffer* vertexBuffer{};
@@ -34,8 +36,9 @@ namespace leap::graphics
 		void Reload(ID3D11Device* pDevice);
 
 	private:
+		friend class LeapEngine;
+
 		DirectXMeshLoader() = default;
-		~DirectXMeshLoader();
 
 		DirectXMeshDefinition CreateMesh(const std::string& dataPath, ID3D11Device* pDevice) const;
 		DirectXMeshDefinition CreateMesh(const std::vector<Vertex> vertices, const std::vector<unsigned int> indices, ID3D11Device* pDevice) const;

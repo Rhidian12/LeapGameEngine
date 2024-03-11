@@ -18,6 +18,8 @@
 
 #include "Physics/PhysicsSync.h"
 
+#include "../Graphics/DirectX/DirectXMeshLoader.h"
+
 #include "Memory/Mallocator.h"
 
 // [TODO]: Better name?
@@ -28,6 +30,7 @@ namespace leap
 		GameContext gameContext;
 		input::InputManager inputManager;
 		SceneManager sceneManager;
+		graphics::DirectXMeshLoader meshLoader;
 	};
 
 	static EngineContext* pEngineContext{};
@@ -183,4 +186,9 @@ leap::input::InputManager& leap::LeapEngine::GetInputManager()
 leap::SceneManager& leap::LeapEngine::GetSceneManager()
 {
 	return pEngineContext->sceneManager;
+}
+
+leap::graphics::DirectXMeshLoader& leap::LeapEngine::GetDirectXMeshLoader()
+{
+	return pEngineContext->meshLoader;
 }

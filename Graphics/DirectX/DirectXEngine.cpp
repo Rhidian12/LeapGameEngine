@@ -31,6 +31,8 @@
 
 #include "../Data/CustomMesh.h"
 
+#include "../LeapEngine/Leap.h"
+
 leap::graphics::DirectXEngine::DirectXEngine(GLFWwindow* pWindow) : m_pWindow(pWindow)
 {
 	Debug::Log("DirectXRenderer Log: Created DirectX engine");
@@ -343,7 +345,7 @@ void leap::graphics::DirectXEngine::ReloadDirectXEngine()
 		materialPair.second->SetTexture("gShadowMap", m_ShadowRenderer.GetShadowMap());
 	}
 
-	DirectXMeshLoader::GetInstance().Reload(m_pDevice);
+	leap::LeapEngine::GetDirectXMeshLoader().Reload(m_pDevice);
 
 	for (const auto& pRenderer : m_pRenderers)
 	{

@@ -8,6 +8,8 @@
 #include "../Shaders/Pos3D.h"
 #include "../Shaders/PosNorm3D.h"
 
+#include "../LeapEngine/Leap.h"
+
 leap::graphics::DirectXDefaults::~DirectXDefaults() = default;
 
 leap::graphics::DirectXMaterial* leap::graphics::DirectXDefaults::GetMaterialNotFound(ID3D11Device* pDevice)
@@ -36,7 +38,7 @@ leap::graphics::DirectXMaterial* leap::graphics::DirectXDefaults::GetMaterialErr
 
 void leap::graphics::DirectXDefaults::GetMeshError(ID3D11Device* pDevice, unsigned int& vertexSize, ID3D11Buffer*& pVertexBuffer, ID3D11Buffer*& pIndexBuffer, unsigned int& nrIndices)
 {
-	const DirectXMeshLoader::DirectXMeshDefinition& mesh{ DirectXMeshLoader::GetInstance().LoadMesh("Data/Engine/Models/error.obj", pDevice)};
+	const DirectXMeshLoader::DirectXMeshDefinition& mesh{ leap::LeapEngine::GetDirectXMeshLoader().LoadMesh("Data/Engine/Models/error.obj", pDevice)};
 	vertexSize = mesh.vertexSize;
 	pVertexBuffer = mesh.vertexBuffer;
 	pIndexBuffer = mesh.indexBuffer;

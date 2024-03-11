@@ -9,6 +9,8 @@
 
 #include "../MeshLoader.h"
 
+#include "../LeapEngine/Leap.h"
+
 leap::graphics::DirectXMeshRenderer::DirectXMeshRenderer(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext)
 	: m_pDevice{ pDevice }
 	, m_pDeviceContext{ pDeviceContext }
@@ -93,11 +95,11 @@ void leap::graphics::DirectXMeshRenderer::LoadMesh(const std::string& filePath)
 {
 	m_FilePath = filePath;
 
-	const DirectXMeshLoader::DirectXMeshDefinition& mesh{ DirectXMeshLoader::GetInstance().LoadMesh(filePath, m_pDevice) };
+	const DirectXMeshLoader::DirectXMeshDefinition& mesh{ leap::LeapEngine::GetDirectXMeshLoader().LoadMesh(filePath, m_pDevice)};
 
 	if (m_HasCustomMesh)
 	{
-		DirectXMeshLoader::GetInstance().RemoveCustomMesh(m_pVertexBuffer);
+		leap::LeapEngine::GetDirectXMeshLoader().RemoveCustomMesh(m_pVertexBuffer);
 	}
 
 	m_HasCustomMesh = false;
@@ -109,11 +111,11 @@ void leap::graphics::DirectXMeshRenderer::LoadMesh(const std::string& filePath)
 
 void leap::graphics::DirectXMeshRenderer::LoadMesh(const CustomMesh& mesh)
 {
-	const DirectXMeshLoader::DirectXMeshDefinition& directXMesh{ DirectXMeshLoader::GetInstance().LoadMesh(mesh, m_pDevice) };
+	const DirectXMeshLoader::DirectXMeshDefinition& directXMesh{ leap::LeapEngine::GetDirectXMeshLoader().LoadMesh(mesh, m_pDevice) };
 
 	if (m_HasCustomMesh)
 	{
-		DirectXMeshLoader::GetInstance().RemoveCustomMesh(m_pVertexBuffer);
+		leap::LeapEngine::GetDirectXMeshLoader().RemoveCustomMesh(m_pVertexBuffer);
 	}
 
 	m_HasCustomMesh = true;
