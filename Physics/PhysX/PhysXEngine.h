@@ -31,6 +31,7 @@ namespace leap::physics
 	class IPhysicsMaterial;
 	class PhysXObject;
 	class PhysXSimulationCallbacks;
+	class PhysXMaterial;
 
 	class PhysXEngine final : public IPhysics, public TObserver<SimulationEvent>
 	{
@@ -93,6 +94,8 @@ namespace leap::physics
 		TSubject<CollisionData> m_OnTriggerEnter{};
 		TSubject<CollisionData> m_OnTriggerStay{};
 		TSubject<CollisionData> m_OnTriggerExit{};
+
+		std::unique_ptr<PhysXMaterial> m_pDefaultMaterial{};
 
 		bool m_IsDebugDrawingEnabled{};
 	};

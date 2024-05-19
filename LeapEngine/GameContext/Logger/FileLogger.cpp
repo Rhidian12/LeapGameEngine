@@ -19,12 +19,12 @@ void leap::FileLogger::SetEnabled(bool enable)
     if (enable)
     {
         StartFile();
-        Debug::OnEvent.AddListener(this);
+        Debug::pOnEvent->AddListener(this);
     }
     else
     {
         CloseFile();
-        Debug::OnEvent.RemoveListener(this);
+        Debug::pOnEvent->RemoveListener(this);
     }
     m_Enabled = enable;
 }

@@ -64,6 +64,11 @@ leap::physics::PhysXEngine::~PhysXEngine()
     m_pSimulationFilterCallback->OnSimulationEvent.RemoveListener(this);
     m_pSimulationCallbacks->OnSimulationEvent.RemoveListener(this);
 
+    // [TODO]: This is an ugly dependency that m_pScene and m_pPhysics are destroyed before m_pDefaultMaterial
+    // This should be handled in a better way
+    // Question: How did this not cause any issues when the default material was a static variable?
+    m_pDefaultMaterial.reset(nullptr);
+
     m_pScene = nullptr;
     m_pObjects.clear();
 
@@ -209,18 +214,16 @@ void leap::physics::PhysXEngine::Notify(const SimulationEvent& e)
 
 leap::physics::IPhysicsMaterial* leap::physics::PhysXEngine::GetDefaultMaterial()
 {
-    static std::unique_ptr<PhysXMaterial> pMaterial{};
-
-    if (!pMaterial)
+    if (!m_pDefaultMaterial)
     {
-        pMaterial = std::make_unique<PhysXMaterial>(this);
+        m_pDefaultMaterial = std::make_unique<PhysXMaterial>(this);
         
         constexpr float defaultFriction{ 0.6f };
         constexpr float defaultBounciness{ 0.0f };
-        pMaterial->SetStaticFriction(defaultFriction);
-        pMaterial->SetDynamicFriction(defaultFriction);
-        pMaterial->SetBounciness(defaultBounciness);
+        m_pDefaultMaterial->SetStaticFriction(defaultFriction);
+        m_pDefaultMaterial->SetDynamicFriction(defaultFriction);
+        m_pDefaultMaterial->SetBounciness(defaultBounciness);
     }
 
-    return pMaterial.get();
+    return m_pDefaultMaterial.get();
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <string>
 #include <source_location>
 #include "Subject.h"
@@ -34,7 +35,7 @@ namespace leap
 
 		static void SetThrowingOnError(bool enabled);
 
-		inline static TSubject<LogInfo> OnEvent{};
+		inline static std::unique_ptr<TSubject<LogInfo>> pOnEvent{ std::make_unique<TSubject<LogInfo>>() };
 
 	private:
 		static std::string GetTime();

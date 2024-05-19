@@ -95,6 +95,9 @@ leap::LeapEngine::~LeapEngine()
 	}
 
 	Debug::Log("LeapEngine Log: Engine destroyed");
+
+	// [TODO]: Again, ugly dependency
+	Debug::pOnEvent.reset(nullptr);
 }
 
 void leap::LeapEngine::Run(const std::function<void()>& afterInitialize, int desiredFPS)
